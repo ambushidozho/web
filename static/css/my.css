@@ -1,0 +1,207 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
+
+html
+{
+    height: 100%;
+}
+body {
+    background-color: #FFA8EC;
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight:lighter;
+    background-attachment: scroll
+}
+header {
+    background: #515151;
+    display: flex;
+    position: sticky;
+    top: 0;
+}
+.headerul {
+    list-style: none;
+    padding: 10px;
+    display: flex;
+    margin-left: auto;
+}
+.headera {
+    font-size: 24px;
+    display: flex;
+    text-decoration: none;
+    color: #FFFFFF;
+    padding: 10px;
+}
+    .headera:hover {
+        color: #FFA8EC;
+    }
+
+.logo
+{
+    margin-top: 17px;
+}
+
+.avatar > img
+{
+    width: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    height: 100px;
+    display: block;
+    margin: 0 auto; 
+}
+.question
+{
+    background-color: #f78de0;
+    border-radius: 15px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+.question:hover
+{
+   background-color:#d38deb;
+}
+.container
+{
+    width: 100%;
+    height: 100%;
+}
+.right_tags
+{
+    text-align: center;
+}
+span
+{
+    font-size: 18px;
+    font-weight: bold;
+}
+.icon-excel {
+    background-image: url("../img/like.png");
+    padding-left : 32px;
+    padding-top : 10px;
+    padding-bottom : 10px;
+    background-repeat : no-repeat;
+    }
+form {
+    width:300px;
+    margin-left: 35px;
+    margin-top: 35px;
+    }
+input{
+    padding:4px 10px;
+    border:0;
+    font-size:16px;
+    }
+.search {
+    width: 75%;
+    border-radius: 10px;
+    }
+.submit{
+    width: 70px;
+    border-radius: 10px;
+    background-color: #1c87c9;
+    color:#ffffff;
+    }
+.best_member
+{
+    text-decoration: none;
+    color: black;
+}
+.best_member:hover
+{
+    color:#656566
+}
+.arrow {
+    width: 20px;
+    height: 20px;
+    border-top: 3px solid #6f747d;
+    border-right: 3px solid #6f747d;
+    margin-left: 15px;
+    margin-bottom: 15px;
+}
+   
+.arrow-top
+{    
+    transform: rotate(-45deg);
+}    
+.arrow-bottom 
+{
+    transform: rotate(135deg);
+} 
+.counter
+{
+    margin-top: 10px;
+    font-size: 30px;
+    color: #656566;
+}
+.header_for_question
+{
+    text-decoration: none;
+    color: black;
+}
+.header_for_question:hover{
+    color: #656566;
+}
+.main_question
+{
+    border-bottom: black 2px solid;
+    margin-top: 50px;
+    padding: 5px;
+}
+.answers
+{
+    margin-top: 15px;
+    border-radius: 10px;
+    border: black 2px solid;
+    padding: 10px;
+}
+.correct
+{
+    margin: 20px;
+}
+.checkbox_text
+{
+    margin-left: 5px;
+    font-size: 20px;
+    font-weight: 500;
+}
+.textbox
+{
+    display: flex;
+    width: 50vw;
+    height: 25vh;
+    margin-top: 35px;
+    margin-bottom: 35px;
+    border: black 2px solid;
+}
+.Best_members
+{
+    margin-top: 50px;
+}
+.Popular_Tags
+{
+    margin-top: 50px;
+}
+
+.text_box
+{
+    display: block;
+    height: 50vh;
+    width: 30vw;
+}
+.title_box
+{
+    width: 30vw;
+    display: block;
+}
+
+.tags
+{
+    margin: 30px;
+    
+    font-size: 20px;
+    font-weight: 400;
+}
+.btn-dark
+{
+    margin-top: 20px;
+}
