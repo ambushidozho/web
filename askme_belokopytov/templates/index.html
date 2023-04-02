@@ -1,0 +1,12 @@
+{% extends "inc/base.html" %} 
+{% block content %}
+
+
+
+<div class="col-9">
+{% for question in questions %}
+    {% include "inc/question_item.html" %}
+{% endfor %}
+</div>
+
+{% endblock content %}

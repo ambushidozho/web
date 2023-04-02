@@ -1,0 +1,38 @@
+{% load static %}
+
+<div class="question">
+    <div class="row">
+      <div class="col-3">
+        <div class="avatar">
+          <img src="{% static 'img/ava.png' %}" alt="Here will be picture" />
+        </div>
+        <div class="row">
+          <div>
+            <div class="counter">0</div>
+            <button
+              type="button"
+              class="btn btn-danger"
+              data-bs-toggle="button"
+              autocomplete="off"
+            >
+              Like
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <a class="header_for_question" href="{% url "question" question.id %}"
+          ><h2>{{ question.title }}</h2></a
+        >
+        <p>
+            {{ question.text }}
+        </p>
+        <div class="row">
+          <div class="col-4"><a href="{% url "question" question.id %}">Answers (3)</a></div>
+          <div class="col-8">
+            Tags: <a href="#">tag</a>, <a href="#">tag</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

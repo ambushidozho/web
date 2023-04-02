@@ -1,10 +1,13 @@
+{% load static %}
+
 <!DOCTYPE html>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <link href="../static/css/bootstrap.css" rel="stylesheet" type="text/css" />
-    <link href="../static/css/my.css" rel="stylesheet" type="text/css" />
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'css/my.css' %}" rel="stylesheet" type="text/css" />
+    
 </head>
 <body>
 <header class="container-fluid">
@@ -26,8 +29,8 @@
 
 
     <div class="row">
-      <div class="col-9">
-      </div>
+      {% block content %}
+      {% endblock content %}
       <div class="col-3">
         <div class="right_tags">
           <div>
