@@ -1,0 +1,35 @@
+{% load static %}
+
+<div class="answers">
+    <div class="row">
+      <div class="col-3">
+        <div class="avatar">
+          <img src="{% static 'img/ava.png' %}" alt="Here will be picture" />
+        </div>
+        <div class="row">
+          <div class="col-2">
+            <div>
+              <div class="counter">{{answer.likes}}</div>
+              <button
+                type="button"
+                class="btn btn-danger"
+                data-bs-toggle="button"
+                autocomplete="off"
+              >
+                Like
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-9">
+        <div class="answer_text">
+            {{ answer.text }}
+        </div>
+        <div class="correct">
+          <input type="checkbox" style="transform: scale(1.5)" />
+          <label class="checkbox_text">Correct</label>
+        </div>
+      </div>
+    </div>
+  </div>

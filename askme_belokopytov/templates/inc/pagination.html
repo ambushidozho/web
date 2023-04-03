@@ -1,0 +1,13 @@
+
+
+
+
+<nav aria-label="Page navigation example">
+     <ul class="pagination justify-content-center">
+        {% for p in page.paginator.page_range %}
+        <li class="page-item enabled">
+            <a href="?page={{p}}" class="page-link">{{ p }}</a>
+        </li>   
+        {% endfor %} 
+    </ul>  
+</nav>  

@@ -1,113 +1,11 @@
-{% extends "inc/base.html" %} 
-{% block content %}
+{% extends "inc/base.html" %} {% block content %}
 
-<div class="col-9">
-  <div class="main_question">
-    <div class="row">
-      <div class="col-3">
-        <div class="avatar">
-          <img src="../static/img/ava.png" alt="Here will be picture" />
-        </div>
-        <div class="row">
-          <div class="col-2">
-            <div>
-              <div class="counter">0</div>
-              <button
-                type="button"
-                class="btn btn-danger"
-                data-bs-toggle="button"
-                autocomplete="off"
-              >
-                Like
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-9">
-        <a class="header_for_question" href="#"><h2>Awesome question 1</h2></a>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad similique
-          accusamus voluptatibus ullam praesentium iste nam quaerat voluptates
-          quo fugiat, harum eius facere error voluptatem corrupti minima.
-          Impedit, harum tempora.
-        </p>
-        <div>Tags: <a href="#">tag</a>, <a href="#">tag</a></div>
-      </div>
-    </div>
-  </div>
-  <div class="answers">
-    <div class="row">
-      <div class="col-3">
-        <div class="avatar">
-          <img src="../static/img/ava.png" alt="Here will be picture" />
-        </div>
-        <div class="row">
-          <div class="col-2">
-            <div>
-              <div class="counter">0</div>
-              <button
-                type="button"
-                class="btn btn-danger"
-                data-bs-toggle="button"
-                autocomplete="off"
-              >
-                Like
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-9">
-        <div class="answer_text">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem
-          odit veniam ipsa omnis repellat sapiente, cum enim placeat corporis
-          quas aut tenetur rem ut architecto perspiciatis voluptates illum qui
-          animi!
-        </div>
-        <div class="correct">
-          <input type="checkbox" style="transform: scale(1.5)" />
-          <label class="checkbox_text">Correct</label>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="answers">
-    <div class="row">
-      <div class="col-3">
-        <div class="avatar">
-          <img src="../static/img/ava.png" alt="Here will be picture" />
-        </div>
-        <div class="row">
-          <div class="col-2">
-            <div>
-              <div class="counter">0</div>
-              <button
-                type="button"
-                class="btn btn-danger"
-                data-bs-toggle="button"
-                autocomplete="off"
-              >
-                Like
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-9">
-        <div class="answer_text">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem
-          odit veniam ipsa omnis repellat sapiente, cum enim placeat corporis
-          quas aut tenetur rem ut architecto perspiciatis voluptates illum qui
-          animi!
-        </div>
-        <div class="correct">
-          <input type="checkbox" style="transform: scale(1.5)" />
-          <label class="checkbox_text">Correct</label>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="col-9 mt-12">
+  <h1>{{question.title}}</h1>
+  {% include "inc/question_item.html" %}
+  {% for answer in page %} 
+  {% include "inc/answer_item.html" %} 
+  {% endfor %}
   <textarea
     class="textbox"
     name="comment"
@@ -116,19 +14,7 @@
     placeholder="Enter answer here"
   >
   </textarea>
-  <div>
-    <nav aria-label="Page navigation example">
-      <ul class="pagination">
-        <li class="page-item">
-          <a class="page-link" href="#">Previous</a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-      </ul>
-    </nav>
-  </div>
+  {% include "inc/pagination.html" %}
 </div>
 
 {% endblock content %}
