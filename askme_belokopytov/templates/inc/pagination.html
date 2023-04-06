@@ -2,12 +2,90 @@
 
 
 
-<nav aria-label="Page navigation example">
+<!-- <nav aria-label="Page navigation example">
      <ul class="pagination justify-content-center">
+        <li class="page-item enabled">
+            <a href="?page={{1}}" class="page-link">First</a>
+        </li>
         {% for p in page.paginator.page_range %}
         <li class="page-item enabled">
             <a href="?page={{p}}" class="page-link">{{ p }}</a>
         </li>   
         {% endfor %} 
+        <li class="page-item enabled">
+            <a href="?page=123123123123123123123" class="page-link">Last</a>
+        </li>
     </ul>  
-</nav>  
+</nav>   -->
+
+
+
+
+
+
+
+<nav aria-label="pagination" class="pagination_area">
+    <div class="row">
+      {% if page.end_index > 0 %}
+      <div class="col-sm-12 col-md-5 d-none d-md-block">
+        <p>Showing {{ page.start_index }} to {{ page.end_index }} of {{ page.paginator.count}}.</p>
+      </div>
+      {% endif %}
+      {% if page.paginator.num_pages > 1 %}
+      <div class="col-sm-12 col-md-7 dataTables_pager">
+        <ul class="pagination">
+          {% if page.has_previous %}
+    
+            <li class="page-item">
+              <a class="page-link" data-page="1" href="?page={{ page.previous_page_number }}">
+                <i> << </i>
+              </a>
+            </li>
+            {% if page.previous_page_number > 1 %}
+              <li class="page-item">
+                <a class="page-link " data-page="{{page.previous_page_number}}"  href="?page={{ page.previous_page_number }}">
+                  <i> < </i>
+                </a>
+              </li>
+            {% endif %}
+    
+          {% endif %}
+    
+          {% if page.previous_page_number > 2 %}
+            <li class="page-item">
+              <a class="page-link " data-page="{{page.number|add:'-2'}}" href="?page={{page.number|add:'-2'}}"> {{ page.number|add:"-2" }} </a>
+             </li>
+            <li class="page-item">
+              <a class="page-link " data-page="{{page.number|add:'-1'}}" href="?page={{page.number|add:'-1'}}"> {{ page.number|add:"-1" }} </a>
+            </li>
+          {% endif %}
+    
+          <li class="page-item active"><span class="page-link ">{{ page.number }}</span></li>
+    
+          {% if page.paginator.num_pages > page.number|add:"2" %}
+            <li class="page-item">
+              <a class="page-link " data-page="{{page.number|add:'1'}}" href="?page={{page.number|add:'1'}}"> {{ page.number|add:"1" }} </a>
+            </li>
+            <li class="page-item">
+              <a class="page-link " data-page="{{page.number|add:'2'}}" href="?page={{page.number|add:'2'}}"> {{ page.number|add:"2" }} </a>
+            </li>
+          {% endif %}
+    
+          {% if page.has_next %}
+            <li class="page-item">
+              <a class="page-link " data-page="{{page.next_page_number}}" href="?page={{ page.next_page_number }}">
+                <i> > </i>
+              </a>
+            </li>
+    
+            <li class="page-item">
+              <a class="page-link " data-page="{{page.paginator.num_pages}}" href="?page={{page.paginator.num_pages}}">
+                <i> >> </i>
+              </a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+      {% endif %}
+    </div>
+    </nav>

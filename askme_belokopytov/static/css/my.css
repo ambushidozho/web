@@ -10,13 +10,22 @@ body {
     background-size: cover;
     font-family: 'Ubuntu', sans-serif;
     font-weight:lighter;
-    background-attachment: scroll
+    background-attachment: scroll;
+}
+
+.question_text
+{
+    word-wrap: break-word;
+    overflow-x:hidden;
+    overflow:hidden;
+    width: 400px;
 }
 header {
     background: #515151;
     display: flex;
     position: sticky;
     top: 0;
+    z-index: 1;
 }
 .headerul {
     list-style: none;
@@ -162,6 +171,7 @@ input{
 }
 .correct
 {
+    z-index: -1;
     margin: 20px;
 }
 .checkbox_text
