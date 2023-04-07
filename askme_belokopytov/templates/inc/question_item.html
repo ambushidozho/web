@@ -4,7 +4,9 @@
   <div class="row">
     <div class="col-3">
       <div class="avatar">
-        <img src="{% static 'img/ava.png' %}" alt="Here will be picture" />
+        {% if question.profile.avatar %}
+        <img src="{{ MEDIA_URL }}{{ question.profile.avatar.url }}" alt="Here will be picture" />
+        {% endif %}
       </div>
       <div class="row">
         <div>
@@ -29,9 +31,10 @@
       </div>
       <div class="row">
         <div class="col-4">
-          <a href="{% url 'question' question.id %}"
-            >Answers ({{ num_of_answers }})</a
-          >
+
+          <a href="{% url 'question' question.id %}">
+            Answers ({{ question.answer_set.count }})
+            </a>
         </div>
         <div class="col-8">
           Tags: {% for tag in question.tag.all %}

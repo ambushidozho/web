@@ -12,11 +12,6 @@ class QuestionManager(models.Manager):
     def get_best(self):
         return self.filter().order_by('-likes')
     
-    def get_num_of_answers(self):
-       try:
-        return Question.objects.annotate(Count('answer'))[1].answer__count
-       except:
-           pass
     
 class Question(models.Model):
     likes = models.IntegerField(default=0)
@@ -43,7 +38,7 @@ class Answer(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     nickname = models.CharField(max_length=255)
-    avatar = models.ImageField(upload_to ='../uploads/', default = '../static/img/ava.png')
+    avatar = models.ImageField(null=True, upload_to ='uploads/', default = '../static/img/ava.png', verbose_name="Avatar")
 
     #не работает аватар
     

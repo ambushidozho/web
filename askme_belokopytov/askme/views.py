@@ -7,19 +7,17 @@ def index(request):
     context = {
                'page': paginate(models.Question.objects.get_new(), request)[1],
                'page_range' : paginate(models.Question.objects.get_new(), request)[2],
-               'title': "New questions",
-               'num_of_answers': models.Question.objects.get_num_of_answers()
+               'title': "New questions"
                }
     return render(request, 'index.html', context)
 
 def question(request, question_id):
+    
     try:
         context =   {
                    'question': models.Question.objects.all()[question_id - 1],
                   'page': paginate(models.Answer.objects.get_ans_by_id(models.Question.objects.all()[question_id - 1]), request)[1],
-                  'num_of_answers': models.Question.objects.get_num_of_answers()
                   }
-        #неправильно определяет num of answers 
         return render(request, 'question.html', context)
     except:
         raise Http404("No such question")
@@ -36,16 +34,14 @@ def ask(request):
 def hot(request):
     context = {
                'page': paginate(models.Question.objects.get_best(), request)[1],
-               'title': "Hot questions",
-               'num_of_answers': models.Question.objects.get_num_of_answers()
+               'title': "Hot questions"
                }
     return render(request, 'index.html', context)
 
 def tag(request, tagname):
     context = {
                'page': paginate(models.Question.objects.get_tag(tagname), request)[1],
-               'title': tagname,
-               'num_of_answers': models.Question.objects.get_num_of_answers()
+               'title': tagname
                }
     return render(request, 'index.html', context)
 

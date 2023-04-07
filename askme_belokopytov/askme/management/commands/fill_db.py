@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand
 from askme import models
 import random
 import string
+import sqlite3
 
 class Command(BaseCommand):
     
@@ -33,7 +34,7 @@ class Command(BaseCommand):
 
         users = [models.User(password="ambush", username=''.join(random.choice(letters) for i in range(8))) for i in range(ratio)]
         models.User.objects.bulk_create(users)
-        profiles = [models.Profile(pk=users[i].pk, nickname = users[i].username) for i in range(ratio)]
+        profiles = [models.Profile(pk=users[i].pk, nickname = users[i].username, avatar = "../../../static/img/ava_test.jpg") for i in range(ratio)]
         models.Profile.objects.bulk_create(profiles)
         tags = [models.Tag(name = ''.join(random.choice(letters) for i in range(8))) for i in range(ratio)]
         models.Tag.objects.bulk_create(tags)
@@ -45,7 +46,6 @@ class Command(BaseCommand):
                                      for i in range(ratio * 10)]
         
         models.Question.objects.bulk_create(questions)
-        # problems with avatars in db   FIX THIS!!!!
         for i in range(ratio * 10):
             questions[i].tag.add(tags[i % ratio])
 
