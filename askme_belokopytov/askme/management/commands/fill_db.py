@@ -1,3 +1,4 @@
+import datetime
 from django.core.management.base import BaseCommand
 from askme import models
 import random
@@ -34,7 +35,7 @@ class Command(BaseCommand):
 
         users = [models.User(password="ambush", username=''.join(random.choice(letters) for i in range(8))) for i in range(ratio)]
         models.User.objects.bulk_create(users)
-        profiles = [models.Profile(pk=users[i].pk, nickname = users[i].username, avatar = "../../../static/img/ava_test.jpg") for i in range(ratio)]
+        profiles = [models.Profile(pk=users[i].pk, nickname = users[i].username) for i in range(ratio)] # to upload avatar we need a form that real user will have
         models.Profile.objects.bulk_create(profiles)
         tags = [models.Tag(name = ''.join(random.choice(letters) for i in range(8))) for i in range(ratio)]
         models.Tag.objects.bulk_create(tags)
@@ -42,6 +43,8 @@ class Command(BaseCommand):
         questions = [models.Question(title = ''.join(random.choice(letters) for i in range(8)),
                                      text = "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores, minima ut molestias aspernatur magni etquo sunt quidem harum ad eligen",
                                      profile = profiles[i % ratio],
+                                     pubdate = datetime.date(year=2023, month=((i % 12) + 1), day=12),
+                                     likes = random.randint(0,100)
                                      ) 
                                      for i in range(ratio * 10)]
         
@@ -50,7 +53,9 @@ class Command(BaseCommand):
             questions[i].tag.add(tags[i % ratio])
 
         answers = [models.Answer(question = questions[i % (ratio * 10)],
-                                 text = "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores, minima ut molestias aspernatur magni etquo sunt quidem harum ad eligen") 
+                                 text = "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores, minima ut molestias aspernatur magni etquo sunt quidem harum ad eligen",
+                                 profile = profiles[i % ratio],
+                                 likes = random.randint(0,100))
                                  for i in range(ratio * 100)]
        
 

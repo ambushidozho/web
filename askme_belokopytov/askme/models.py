@@ -1,16 +1,17 @@
+from datetime import date
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Count
 
 class QuestionManager(models.Manager):
     def get_new(self):
-        return self.filter().order_by('pubdate')
+        return self.all().order_by('-pubdate')
     
     def get_tag(self, _tag):
         return self.filter(tag__name=_tag)
     
     def get_best(self):
-        return self.filter().order_by('-likes')
+        return self.all().order_by('-likes')
     
     
 class Question(models.Model):
@@ -21,7 +22,7 @@ class Question(models.Model):
                                 on_delete=models.CASCADE,
                                 related_name='questions')
     tag = models.ManyToManyField('Tag', default="")
-    pubdate = models.DateField(auto_now = True)
+    pubdate = models.DateField(default=date.today)
     objects = QuestionManager()
 
 class AnswerManager(models.Manager):
@@ -32,6 +33,9 @@ class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     text = models.CharField(max_length=10000)
     likes = models.IntegerField(default=0)
+    profile = models.ForeignKey('Profile', 
+                                on_delete=models.CASCADE,
+                                related_name='answers', blank=True, null=True)
     objects = AnswerManager()
 
 
@@ -40,7 +44,6 @@ class Profile(models.Model):
     nickname = models.CharField(max_length=255)
     avatar = models.ImageField(null=True, upload_to ='uploads/', default = '../static/img/ava.png', verbose_name="Avatar")
 
-    #не работает аватар
     
 
 
