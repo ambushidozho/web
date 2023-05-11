@@ -1,20 +1,16 @@
 {% extends "inc/base.html" %} {% block content %}
-
+{% load bootstrap5 %}
 <div class="col-9 mt-12">
   <h1>{{question.title}}</h1>
   {% include "inc/question_item.html" %}
   {% for answer in page %} 
   {% include "inc/answer_item.html" %} 
   {% endfor %}
-  <textarea
-    class="textbox"
-    name="comment"
-    cols="40"
-    rows="3"
-    placeholder="Enter answer here"
-  >
-  </textarea>
-  <button type="button" class="btn btn-dark btn-lg">Answer</button>
+  <form novalidate method="post" action="">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <button type="submit" class="btn btn-dark btn-lg">Answer</button>
+  </form>
   {% include "inc/pagination.html" %}
   
 </div>

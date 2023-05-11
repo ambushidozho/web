@@ -1,44 +1,16 @@
 {% extends "inc/base.html" %} 
 {% block content %}
+
+{% load bootstrap5 %}
+
 <div class="col-9 mt-12">
-  <h1>New Question</h1>
-  <div class="tags">
-    <div class="row">
-      <div class="col-3">
-        <div>Title</div>
-      </div>
-      <div class="col-9">
-        <input type="text" class="title_box" placeholder="" />
-      </div>
-    </div>
-  </div>
-  <div class="tags">
-    <div class="row">
-      <div class="col-3">
-        <div>Text</div>
-      </div>
-      <div class="col-9">
-        <textarea
-          class="text_box"
-          name="comment"
-          cols="20"
-          rows="5"
-          placeholder="Enter answer here"
-        >
-        </textarea>
-      </div>
-    </div>
-  </div>
-  <div class="tags">
-    <div class="row">
-      <div class="col-3">
-        <div>Tags</div>
-      </div>
-      <div class="col-9">
-        <input type="text" class="title_box" placeholder="" />
-      </div>
-    </div>
-    <button type="button" class="btn btn-dark btn-lg">Ask</button>
-  </div>
+  <h1 class="mt-12">Ask question</h1>
+  <form novalidate method="post" action="">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <div>Enter your tags separated by spaces</div>
+    <div><button type="button" class="btn btn-dark btn-lg">Add tag</button></div>
+    <button type="submit" class="btn btn-dark btn-lg">Ask</button>
+  </form>
 </div>
 {% endblock content %}

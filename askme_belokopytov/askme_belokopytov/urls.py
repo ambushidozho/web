@@ -24,10 +24,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('question/<int:question_id>/', views.question, name = "question"),
     path('ask/', views.ask , name = "ask"),
-    path('login/', views.login,name = "login"),
+    path('login/', views.log_in,name = "login"),
     path('signup/', views.signup, name = "signup"),
     path('hot/', views.hot, name = "hot"),
     path('tag/<slug:tagname>/', views.tag, name = "tag"),
+    path('logout/', views.log_out, name = "log_out"),
+    path('profile/edit/', views.settings, name = "edit"),
 ]
 
 if settings.DEBUG:

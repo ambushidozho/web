@@ -32,6 +32,7 @@ class AnswerManager(models.Manager):
 class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     text = models.CharField(max_length=10000)
+    # likes = models.ForeignKey('QuestionLikes', on_delete=models.CASCADE)
     likes = models.IntegerField(default=0)
     profile = models.ForeignKey('Profile', 
                                 on_delete=models.CASCADE,
@@ -46,7 +47,14 @@ class Profile(models.Model):
 
     
 
-
 class Tag(models.Model):
     name = models.CharField(max_length=255)
 
+
+# class QuestionLikes(models.model):
+#     profile = models.ForeignKey('Profile', 
+#                                 on_delete=models.CASCADE,
+#                                 related_name='like', blank=True, null=True)
+#     question = models.ForeignKey('Question', on_delete=models.CASCADE)
+#     like = models.BooleanField('Like', default=False)
+    

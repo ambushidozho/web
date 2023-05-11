@@ -1,39 +1,18 @@
-{% extends "inc/base.html" %} 
-{% block content %}
+{% extends "inc/base.html" %} {% block content %}
+
+{% load bootstrap5 %}
+
 <div class="col-9 mt-12">
   <h1 class="mt-12">Log in</h1>
-  <div class="alert alert-danger" role="alert">Incorrect login or password!</div>
-  <div class="tags">
-    <div class="row">
-      <div class="col-3">
-        <div>Login</div>
-      </div>
-      <div class="col-9">
-        <input
-          type="text"
-          class="login_box"
-          placeholder="Enter your login here"
-        />
-      </div>
+  <form novalidate method="post" action="/login/?continue={{request.GET.continue}}">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    
+    <button type="submit" class="btn btn-dark btn-lg">Log in</button>
+    <div class="mt-3">
+      <a href="{% url 'signup' %}">Create new account</a>
     </div>
-  </div>
-  <div class="tags">
-    <div class="row">
-      <div class="col-3">
-        <div>Password</div>
-      </div>
-      <div class="col-9">
-        <div>
-          <input type="password" class="password_box" placeholder="" />
-        </div>
-        <button type="button" class="btn btn-dark btn-lg">Log in</button>
-        <div class="mt-3">
-          <a href="{% url 'signup' %}">Create new account</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  
+  </form>
 </div>
 
 {% endblock content %}
