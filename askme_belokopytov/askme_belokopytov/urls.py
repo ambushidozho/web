@@ -30,6 +30,8 @@ urlpatterns = [
     path('tag/<slug:tagname>/', views.tag, name = "tag"),
     path('logout/', views.log_out, name = "log_out"),
     path('profile/edit/', views.settings, name = "edit"),
+    path("vote_up/", views.vote_up, name = "vote_up"),
+    path("vote_up_for_answer/", views.vote_up_for_answer, name = "vote_up_for_answer")
 ]
 
 if settings.DEBUG:

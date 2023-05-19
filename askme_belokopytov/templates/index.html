@@ -1,4 +1,6 @@
+
 {% extends "inc/base.html" %} 
+{% load static %}
 {% block content %}
 <div class="col-9 mt-12">
     <h1 class="title">{{ title }}</h1>
@@ -7,4 +9,9 @@
 {% endfor %}
 {% include "inc/pagination.html" %}
 </div>
+
+<script src="{% static "js/jquery-3.7.0.min.js" %}"></script>
+<script src="{% static "js/main.js" %}"></script>
+
+
 {% endblock content %}

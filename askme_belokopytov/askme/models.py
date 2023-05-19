@@ -22,7 +22,7 @@ class Question(models.Model):
                                 on_delete=models.CASCADE,
                                 related_name='questions')
     tag = models.ManyToManyField('Tag', default="")
-    pubdate = models.DateField(default=date.today)
+    pubdate = models.DateTimeField(default=date.today)
     objects = QuestionManager()
 
 class AnswerManager(models.Manager):
@@ -32,18 +32,17 @@ class AnswerManager(models.Manager):
 class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     text = models.CharField(max_length=10000)
-    # likes = models.ForeignKey('QuestionLikes', on_delete=models.CASCADE)
     likes = models.IntegerField(default=0)
-    profile = models.ForeignKey('Profile', 
-                                on_delete=models.CASCADE,
-                                related_name='answers', blank=True, null=True)
+    correct = models.BooleanField(default=False)
+    pub_date = models.DateTimeField(default=date.today)
+    profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
     objects = AnswerManager()
 
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     nickname = models.CharField(max_length=255)
-    avatar = models.ImageField(null=True, upload_to ='uploads/', default = '../static/img/ava.png', verbose_name="Avatar")
+    avatar = models.ImageField(null=True, upload_to ='uploads/%Y/%m/%d/', default = '../static/img/ava.png', verbose_name="Avatar")
 
     
 
@@ -51,10 +50,13 @@ class Tag(models.Model):
     name = models.CharField(max_length=255)
 
 
-# class QuestionLikes(models.model):
-#     profile = models.ForeignKey('Profile', 
-#                                 on_delete=models.CASCADE,
-#                                 related_name='like', blank=True, null=True)
-#     question = models.ForeignKey('Question', on_delete=models.CASCADE)
-#     like = models.BooleanField('Like', default=False)
-    
+class LikeQuestion(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    pub_date = models.DateTimeField(default=date.today)
+
+
+class LikeAnswer(models.Model):
+    answer = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    pub_date = models.DateTimeField(default=date.today)

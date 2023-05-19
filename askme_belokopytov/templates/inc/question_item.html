@@ -10,15 +10,7 @@
       </div>
       <div class="row">
         <div>
-          <div class="counter">{{question.likes}}</div>
-          <button
-            type="button"
-            class="btn btn-danger"
-            data-bs-toggle="button"
-            autocomplete="off"
-          >
-            Like
-          </button>
+          <button class="love-btn btn btn-light" data-id="{{ question.id }}" type="button"> {{question.likes}} Likes</button>
         </div>
       </div>
     </div>

@@ -1,4 +1,6 @@
-{% extends "inc/base.html" %} {% block content %}
+{% extends "inc/base.html" %} 
+{% load static %}
+{% block content %}
 {% load bootstrap5 %}
 <div class="col-9 mt-12">
   <h1>{{question.title}}</h1>
@@ -14,5 +16,8 @@
   {% include "inc/pagination.html" %}
   
 </div>
+
+<script src="{% static "js/jquery-3.7.0.min.js" %}"></script>
+<script src="{% static "js/main.js" %}"></script>
 
 {% endblock content %}

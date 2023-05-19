@@ -1,5 +1,5 @@
 from django.contrib import auth
-from django.http import Http404
+from django.http import Http404, HttpResponse, JsonResponse
 from django.contrib.auth import login
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -9,6 +9,7 @@ from django.core.paginator import Paginator
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
+from django.views.decorators.http import require_GET, require_POST
 # Create your views here.
 
 def index(request):
@@ -18,9 +19,10 @@ def index(request):
                }
     return render(request, 'index.html', context)
 
+
 def question(request, question_id):
     
-    #try:
+    try:
         if request.method == 'POST':
             if request.user.is_authenticated:
                 answer_form = AnswerForm(request.POST)
@@ -36,9 +38,10 @@ def question(request, question_id):
                     'form' : answer_form
                   }
         return render(request, 'question.html', context)
-    #except:
-     #   raise Http404("No such question")
+    except:
+       raise Http404("No such question")
     
+
 @login_required(login_url="/login/", redirect_field_name='continue')
 def ask(request):
     if request.method == 'GET':
@@ -69,6 +72,7 @@ def log_in(request):
 
     return render(request, 'login.html', context= {'form': Login_form})
 
+
 def signup(request):
     if request.method == 'GET':
         user_form = RegistrationForm()
@@ -82,10 +86,6 @@ def signup(request):
             else:
                 user_form.add_error(field=None, error="User saving error")
     return render(request, 'signup.html', context={'form': user_form})
-
-
-
-                    
 
 
 def hot(request):
@@ -132,4 +132,59 @@ def settings(request):
                     'settings.html',
                     {'user_form': user_form,
                     'profile_form': profile_form})
+
+
+@login_required()
+@require_POST
+def vote_up(request):
+    question_id = request.POST['question_id']
+    question = models.Question.objects.get(id=question_id)
+    likes = models.LikeQuestion.objects.filter(question=question)
+    for like in likes:
+        if(like.profile == request.user.profile):
+            question.likes -= 1
+            question.save()
+            like.delete()
+            return JsonResponse(
+            {
+                'new_rating': question.likes
+            })
+    question.likes += 1
+    question.save()
+    like = models.LikeQuestion.objects.create(question=question, profile=request.user.profile)
+    like.save()
+    return JsonResponse(
+        {
+            'new_rating': question.likes
+        }
+    )
+
+
+@login_required()
+@require_POST
+def vote_up_for_answer(request):
+    answer_id = request.POST['answer_id']
+    answer = models.Answer.objects.get(id=answer_id)
+    likes = models.LikeAnswer.objects.filter(answer=answer)
+    for like in likes:
+        if(like.profile == request.user.profile):
+            answer.likes -= 1
+            answer.save()
+            like.delete()
+            return JsonResponse(
+            {
+                'new_rating': answer.likes
+            })
+    answer.likes += 1
+    answer.save()
+    like = models.LikeAnswer.objects.create(answer=answer, profile=request.user.profile)
+    like.save()
+    return JsonResponse(
+        {
+            'new_rating': answer.likes
+        }
+    )
+
+
+
     

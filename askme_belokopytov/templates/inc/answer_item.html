@@ -7,19 +7,9 @@
           <img src="{{ MEDIA_URL }}{{ answer.profile.avatar.url }}" />
         </div>
         <div class="row">
-          <div class="col-2">
             <div>
-              <div class="counter">{{answer.likes}}</div>
-              <button
-                type="button"
-                class="btn btn-danger"
-                data-bs-toggle="button"
-                autocomplete="off"
-              >
-                Like
-              </button>
+              <button class="love-btn-answer btn btn-light" data-id="{{ answer.id }}" type="button"> {{ answer.likes }} Likes</button>
             </div>
-          </div>
         </div>
       </div>
       <div class="col-9">
