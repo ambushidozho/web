@@ -18,9 +18,31 @@ function getCookie(name)
     }
     return cookieValue;
 }
-
-
 const csrftoken = getCookie('csrftoken');
+
+$(".form-check-input").on('change', function (ev)
+{
+    const $this = $(this);
+    const request = new Request(
+        'http://127.0.0.1:8000/correct/',
+        {
+            headers:{
+                'X-CSRFToken': csrftoken,
+                'Content-type' : 'application/x-www-form-urlencoded;charset=UTF-8'
+            },
+            method: 'POST',
+            body: 'answer_id=' + $this.data('id'),
+        }
+    );
+    fetch(request).then(function(response)
+    {
+        response.json().then(function(parsed)
+        {
+            
+        });
+    });
+});
+
 $(".love-btn").on('click', function (ev)
 {
     const $this = $(this);
@@ -45,8 +67,10 @@ $(".love-btn").on('click', function (ev)
 });
 
 
+
 $(".love-btn-answer").on('click', function (ev)
 {
+    console.log("asdasd");
     const $this = $(this);
     const request = new Request(
         'http://127.0.0.1:8000/vote_up_for_answer/',
@@ -67,3 +91,7 @@ $(".love-btn-answer").on('click', function (ev)
         });
     });
 });
+
+
+
+

@@ -20,14 +20,14 @@ def index(request):
     return render(request, 'index.html', context)
 
 
-def question(request, question_id):
-    
+def question(request, question_id): 
     try:
         if request.method == 'POST':
             if request.user.is_authenticated:
                 answer_form = AnswerForm(request.POST)
                 if answer_form.is_valid():
                     answer_form.save(request, models.Question.objects.get(pk=question_id))
+                    answer_form = AnswerForm()
             else:
                 return redirect(reverse('login'))
         else:
@@ -35,11 +35,12 @@ def question(request, question_id):
         context =   {
                     'question': models.Question.objects.get(pk=question_id),
                     'page': paginate(models.Answer.objects.get_ans_by_id(models.Question.objects.get(pk=question_id)), request)[1],
-                    'form' : answer_form
+                    'form' : answer_form,
+                    'profile': request.user.profile
                   }
         return render(request, 'question.html', context)
     except:
-       raise Http404("No such question")
+      raise Http404("No such question")
     
 
 @login_required(login_url="/login/", redirect_field_name='continue')
@@ -182,6 +183,25 @@ def vote_up_for_answer(request):
     return JsonResponse(
         {
             'new_rating': answer.likes
+        }
+    )
+
+
+
+@login_required()
+@require_POST
+def correct(request):
+    answer_id = request.POST['answer_id']
+    answer = models.Answer.objects.get(id=answer_id)
+    if(answer.correct):
+        answer.correct = False;
+    else:
+        answer.correct = True;
+    print(answer.correct)
+    answer.save()
+    return JsonResponse(
+        {
+            'correct': answer.correct
         }
     )
 

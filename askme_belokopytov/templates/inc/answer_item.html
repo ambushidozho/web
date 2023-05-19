@@ -1,6 +1,6 @@
 {% load static %}
 
-<div class="answers">
+<div class="answers" id="{{answer.id}}">
     <div class="row">
       <div class="col-3">
         <div class="avatar">
@@ -16,12 +16,17 @@
         <div class="answer_text">
             {{ answer.text }}
         </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-          <label class="form-check-label" for="flexCheckDefault">
+          {% if answer.question.profile == profile %}
+          {% if answer.correct %}
+          <input class="form-check-input" type="checkbox" data-id="{{ answer.id }}" checked>
+          {% else %}
+          <input class="form-check-input" type="checkbox" data-id="{{ answer.id }}" unchecked>
+          {% endif %}
+          <label class="form-check-label">
             Correct
           </label>
-        </div>
+        {% endif %}
+        
       </div>
     </div>
   </div>

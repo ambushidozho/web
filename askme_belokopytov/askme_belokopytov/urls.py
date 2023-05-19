@@ -31,7 +31,8 @@ urlpatterns = [
     path('logout/', views.log_out, name = "log_out"),
     path('profile/edit/', views.settings, name = "edit"),
     path("vote_up/", views.vote_up, name = "vote_up"),
-    path("vote_up_for_answer/", views.vote_up_for_answer, name = "vote_up_for_answer")
+    path("vote_up_for_answer/", views.vote_up_for_answer, name = "vote_up_for_answer"),
+    path("correct/", views.correct, name = "correct")
 ]
 
 if settings.DEBUG:
