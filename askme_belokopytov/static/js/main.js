@@ -24,7 +24,7 @@ $(".form-check-input").on('change', function (ev)
 {
     const $this = $(this);
     const request = new Request(
-        'http://127.0.0.1/correct/',
+        'http://127.0.0.1:8000/correct/',
         {
             headers:{
                 'X-CSRFToken': csrftoken,
@@ -47,7 +47,7 @@ $(".love-btn").on('click', function (ev)
 {
     const $this = $(this);
     const request = new Request(
-        'http://127.0.0.1/vote_up/',
+        'http://127.0.0.1:8000/vote_up/',
         {
             headers:{
                 'X-CSRFToken': csrftoken,
@@ -73,7 +73,7 @@ $(".love-btn-answer").on('click', function (ev)
     console.log("asdasd");
     const $this = $(this);
     const request = new Request(
-        'http://127.0.0.1/vote_up_for_answer/',
+        'http://127.0.0.1:8000/vote_up_for_answer/',
         {
             headers:{
                 'X-CSRFToken': csrftoken,

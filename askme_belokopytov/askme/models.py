@@ -34,7 +34,7 @@ class Answer(models.Model):
     text = models.CharField(max_length=10000)
     likes = models.IntegerField(default=0)
     correct = models.BooleanField(default=False)
-    pub_date = models.DateTimeField(default=date.today)
+    #pub_date = models.DateTimeField(default=date.today)
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
     objects = AnswerManager()
 

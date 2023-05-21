@@ -1,15 +1,22 @@
+import time
+from uuid import uuid4
 from django.contrib import auth
+from django.forms import model_to_dict
 from django.http import Http404, HttpResponse, JsonResponse
 from django.contrib.auth import login
 from django.shortcuts import render, redirect
 from django.urls import reverse
+import jwt
 from askme.forms import AnswerForm, AskQuestionForm, LoginForm, ProfileEditForm, RegistrationForm, UserEditForm
+
 from . import models
 from django.core.paginator import Paginator
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.views.decorators.http import require_GET, require_POST
+from cent import Client
+
 # Create your views here.
 
 def index(request):
@@ -19,6 +26,7 @@ def index(request):
                }
     return render(request, 'index.html', context)
 
+client = Client("http://localhost:8082/api", api_key="fbe87e0e-a41e-476a-abd6-8690b1e836b5", timeout=1)
 
 def question(request, question_id): 
     #try:
@@ -27,18 +35,42 @@ def question(request, question_id):
                 answer_form = AnswerForm(request.POST)
                 if answer_form.is_valid():
                     answer = answer_form.save(request, models.Question.objects.get(pk=question_id))
+                    client.publish(f'question_{question_id}', model_to_dict(answer))
                     answer_form = AnswerForm()
+                    context =  {
+                        'question': models.Question.objects.get(pk=question_id),
+                        'page': paginate(models.Answer.objects.get_ans_by_id(models.Question.objects.get(pk=question_id)), request)[1],
+                        'form' : answer_form,
+                        'user': request.user,
+                    }
+                if request.user.is_authenticated:
+                    context.update(
+                        {
+                            'server_address' : 'ws://127.0.0.1:8082/connection/websocket',
+                            'cent_channel' : f'question_{question_id}',
+                            'secret_token': jwt.encode({"sub": str(request.user.pk), "exp": int(time.time() + 10*60)}, "8b6c0d20-0cd0-46a2-957d-92b0d625daf4")
+                        }
+                    )
+                return redirect('question',question_id=question_id)
             else:
                 return redirect(reverse('login'))
         else:
             answer_form = AnswerForm()
-        context =   {
-                    'question': models.Question.objects.get(pk=question_id),
-                    'page': paginate(models.Answer.objects.get_ans_by_id(models.Question.objects.get(pk=question_id)), request)[1],
-                    'form' : answer_form,
-                    'user': request.user
-                  }
-        return render(request, 'question.html', context)
+            context =  {
+                        'question': models.Question.objects.get(pk=question_id),
+                        'page': paginate(models.Answer.objects.get_ans_by_id(models.Question.objects.get(pk=question_id)), request)[1],
+                        'form' : answer_form,
+                        'user': request.user,
+                    }
+            if request.user.is_authenticated:
+                context.update(
+                    {
+                        'server_address' : 'ws://127.0.0.1:8082/connection/websocket',
+                        'cent_channel' : f'question_{question_id}',
+                        'secret_token': jwt.encode({"sub": str(request.user.pk), "exp": int(time.time() + 10*60)}, "8b6c0d20-0cd0-46a2-957d-92b0d625daf4")
+                    }
+                )
+            return render(request, 'question.html', context)
     #except:
     #  raise Http404("No such question")
     

@@ -53,8 +53,8 @@ class AnswerForm(forms.Form):
     text = forms.CharField(widget=forms.Textarea)
 
     def save(self, request, question_):
-        Answer.objects.create(question=question_, text=self.cleaned_data.pop('text'), profile=request.user.profile)
-        return
+        answer = Answer.objects.create(question=question_, text=self.cleaned_data.pop('text'), profile=request.user.profile)
+        return answer
 
     
 

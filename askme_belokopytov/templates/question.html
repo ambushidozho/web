@@ -19,5 +19,15 @@
 
 <script src="{% static "js/jquery-3.7.0.min.js" %}"></script>
 <script src="{% static "js/main.js" %}"></script>
+<script src="https://unpkg.com/centrifuge@2.8.5/dist/centrifuge.js"></script>
+<script>
+  const centrifuge = new Centrifuge('{{ server_address }}');
+  centrifuge.setToken("{{secret_token}}");
+  centrifuge.subscribe("{{ cent_channel }}", function(message)
+  {
+    console.log(message);
+  })
+  centrifuge.connect();
+</script>
 
 {% endblock content %}
