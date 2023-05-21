@@ -21,12 +21,12 @@ def index(request):
 
 
 def question(request, question_id): 
-    try:
+    #try:
         if request.method == 'POST':
             if request.user.is_authenticated:
                 answer_form = AnswerForm(request.POST)
                 if answer_form.is_valid():
-                    answer_form.save(request, models.Question.objects.get(pk=question_id))
+                    answer = answer_form.save(request, models.Question.objects.get(pk=question_id))
                     answer_form = AnswerForm()
             else:
                 return redirect(reverse('login'))
@@ -36,11 +36,11 @@ def question(request, question_id):
                     'question': models.Question.objects.get(pk=question_id),
                     'page': paginate(models.Answer.objects.get_ans_by_id(models.Question.objects.get(pk=question_id)), request)[1],
                     'form' : answer_form,
-                    'profile': request.user.profile
+                    'user': request.user
                   }
         return render(request, 'question.html', context)
-    except:
-      raise Http404("No such question")
+    #except:
+    #  raise Http404("No such question")
     
 
 @login_required(login_url="/login/", redirect_field_name='continue')
@@ -136,7 +136,6 @@ def settings(request):
 
 
 @login_required()
-@require_POST
 def vote_up(request):
     question_id = request.POST['question_id']
     question = models.Question.objects.get(id=question_id)

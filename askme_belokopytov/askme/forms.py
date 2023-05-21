@@ -42,11 +42,11 @@ class AskQuestionForm(forms.Form):
         for tag in tags:
             if Tag.objects.filter(name=tag).exists():
                 question_.tag.add(Tag.objects.get(name=tag))
+                print("exists" + tag)
             else:
                 tag_ = Tag.objects.create(name=tag)
-                question_.tag.add(tag_)
-                
-                
+                print("created" + tag)
+                question_.tag.add(tag_) 
         return question_
 
 class AnswerForm(forms.Form):
