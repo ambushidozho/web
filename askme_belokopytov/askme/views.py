@@ -35,7 +35,7 @@ def question(request, question_id):
                 answer_form = AnswerForm(request.POST)
                 if answer_form.is_valid():
                     answer = answer_form.save(request, models.Question.objects.get(pk=question_id))
-                    client.publish(f'question_{question_id}', model_to_dict(answer))
+                    #client.publish(f'question_{question_id}', model_to_dict(answer))
                     answer_form = AnswerForm()
                     context =  {
                         'question': models.Question.objects.get(pk=question_id),
