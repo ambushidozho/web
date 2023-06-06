@@ -8,11 +8,11 @@ dir_ = sys.path[0]
 res = open(os.path.join(dir_,f"result_2.txt"), 'w') #файл для записи
 N = 4 #количество знаков после запятой 
 #постановка задачи 
-Q = np.array([[10,-4],[-4,16]]) 
-b = np.array([[16*np.sqrt(5.0)],[8*np.sqrt(5.0)]]) 
-c = -44 
+Q = np.array([[22,6],[6,6]]) 
+b = np.array([[-2*np.sqrt(10.0)],[6*np.sqrt(10)]]) 
+c = -22 
 n = 2 
-x0 = np.array([[0],[2*np.sqrt(5.0)]]) 
+x0 = np.array([[np.sqrt(10.0)],[0]]) 
 epsilon = 10**(-3) #погрешность 
 
 def X(x): 
@@ -22,12 +22,12 @@ def f(x):
     return (1/2*float(np.dot(np.dot(np.transpose(x),Q),x))+float(np.dot(np.transpose(b),x))+ c) 
 
 #константы и функции для построения графика 
-left = -5-4-1 
-rigth = 5-4+1 
-bottom = -5-1 
-top = 5+1 
+left = -5
+rigth = 10
+bottom = -15
+top = 5
 x1, x2 = np.mgrid[left-0.5:rigth+0.5:0.01,bottom-0.5:top+0.5:0.01] 
-zg = 5*x1**2+8*x2**2-4*x1*x2+8*np.sqrt(5)*(2*x1+x2)-44 
+zg = 11*x1**2+3*x2**2+6*x1*x2-2*np.sqrt(10)*(x1-3*x2)-22 
 
 def graph(label,x,fx,t): #функция построения графика 
     fig, ax = plt.subplots() 
@@ -36,6 +36,7 @@ def graph(label,x,fx,t): #функция построения графика
     fig.set_figwidth(10) 
     fig.set_figheight(10) 
     fx_ = [] 
+
     for k in range(len(x)): 
         for j in range(len(x[k])): 
             try: 
