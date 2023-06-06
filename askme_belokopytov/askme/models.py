@@ -22,7 +22,7 @@ class Question(models.Model):
                                 on_delete=models.CASCADE,
                                 related_name='questions')
     tag = models.ManyToManyField('Tag', default="")
-    pubdate = models.DateTimeField(default=date.today)
+    pubdate = models.DateTimeField(auto_now_add=True)
     objects = QuestionManager()
 
 class AnswerManager(models.Manager):

@@ -29,7 +29,7 @@ def index(request):
 client = Client("http://localhost:8082/api", api_key="fbe87e0e-a41e-476a-abd6-8690b1e836b5", timeout=1)
 
 def question(request, question_id): 
-    #try:
+    try:
         if request.method == 'POST':
             if request.user.is_authenticated:
                 answer_form = AnswerForm(request.POST)
@@ -62,17 +62,17 @@ def question(request, question_id):
                         'form' : answer_form,
                         'user': request.user,
                     }
-            if request.user.is_authenticated:
-                context.update(
-                    {
-                        'server_address' : 'ws://127.0.0.1:8082/connection/websocket',
-                        'cent_channel' : f'question_{question_id}',
-                        'secret_token': jwt.encode({"sub": str(request.user.pk), "exp": int(time.time() + 10*60)}, "8b6c0d20-0cd0-46a2-957d-92b0d625daf4")
-                    }
-                )
+            # if request.user.is_authenticated:
+            #     context.update(
+            #         {
+            #             'server_address' : 'ws://127.0.0.1:8082/connection/websocket',
+            #             'cent_channel' : f'question_{question_id}',
+            #             'secret_token': jwt.encode({"sub": str(request.user.pk), "exp": int(time.time() + 10*60)}, "8b6c0d20-0cd0-46a2-957d-92b0d625daf4")
+            #         }
+            #     )
             return render(request, 'question.html', context)
-    #except:
-    #  raise Http404("No such question")
+    except:
+      raise Http404("No such question")
     
 
 @login_required(login_url="/login/", redirect_field_name='continue')
@@ -168,6 +168,7 @@ def settings(request):
 
 
 @login_required()
+@require_POST
 def vote_up(request):
     question_id = request.POST['question_id']
     question = models.Question.objects.get(id=question_id)
