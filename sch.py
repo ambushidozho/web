@@ -42,7 +42,7 @@ def graph(label,x,fx): #функция построения графика
     for i in range(len(x)): 
         xg.append(float(x[i][0][0])) 
         yg.append(float(x[i][1][0])) 
-    ax.plot(xg, yg, color = 'black',lw=3) 
+    ax.plot(xg, yg, color = 'purple',lw=3) 
     plt.grid(linestyle = (0, (5, 10))) 
     plt.show() 
     plt.savefig(os.path.join(dir_,f"1_{label}.png"), format = 'png') 

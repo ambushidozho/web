@@ -22,10 +22,10 @@ def f(x):
     return (1/2*float(np.dot(np.dot(np.transpose(x),Q),x))+float(np.dot(np.transpose(b),x))+ c) 
 
 #константы и функции для построения графика 
-left = -5
-rigth = 10
-bottom = -15
-top = 5
+left = -1
+rigth = 4
+bottom = -8
+top = 3
 x1, x2 = np.mgrid[left-0.5:rigth+0.5:0.01,bottom-0.5:top+0.5:0.01] 
 zg = 11*x1**2+3*x2**2+6*x1*x2-2*np.sqrt(10)*(x1-3*x2)-22 
 
@@ -63,7 +63,7 @@ def graph(label,x,fx,t): #функция построения графика
 # ax.arrow(xg[i-1],yg[i-1],(xg[i]-xg[i-1])/2,(yg[i]-yg[i-1])/2, 
 #length_includes_head=True, color='r',  head_width = 0.08) 
     #ax.plot(xg, yg,color = 'r', marker='o', markersize=3, markeredgecolor="black") 
-    ax.plot(xg, yg, color = 'black',lw=3) 
+    ax.plot(xg, yg, color = 'purple',lw=3) 
     #if t == 2: 
 # ax.plot(xg2, yg2,color = 'r', linestyle = '--', linewidth=0.5) 
     #plt.show() 
