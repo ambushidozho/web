@@ -5,7 +5,8 @@ plt.rcParams.update({'font.size': 16})
 import os 
 import sys 
 dir_ = sys.path[0] 
-res = open(os.path.join(dir_,f"result_2.txt"), 'w') #файл для записи N = 4 #количество знаков после запятой 
+res = open(os.path.join(dir_,f"result_2.txt"), 'w') #файл для записи
+N = 4 #количество знаков после запятой 
 #постановка задачи 
 Q = np.array([[10,-4],[-4,16]]) 
 b = np.array([[16*np.sqrt(5.0)],[8*np.sqrt(5.0)]]) 
@@ -13,10 +14,13 @@ c = -44
 n = 2 
 x0 = np.array([[0],[2*np.sqrt(5.0)]]) 
 epsilon = 10**(-3) #погрешность 
+
 def X(x): 
     return np.array([[x[0]],[x[1]]]) 
+
 def f(x): 
     return (1/2*float(np.dot(np.dot(np.transpose(x),Q),x))+float(np.dot(np.transpose(b),x))+ c) 
+
 #константы и функции для построения графика 
 left = -5-4-1 
 rigth = 5-4+1 
@@ -24,6 +28,7 @@ bottom = -5-1
 top = 5+1 
 x1, x2 = np.mgrid[left-0.5:rigth+0.5:0.01,bottom-0.5:top+0.5:0.01] 
 zg = 5*x1**2+8*x2**2-4*x1*x2+8*np.sqrt(5)*(2*x1+x2)-44 
+
 def graph(label,x,fx,t): #функция построения графика 
     fig, ax = plt.subplots() 
     ax.set_xlabel("x1") 
@@ -38,8 +43,8 @@ def graph(label,x,fx,t): #функция построения графика
             except: 
                 pass 
     fx_ = list(set(fx_)) 
-    ax.contour(x1, x2, zg, colors = 'black',linewidths=1, linestyles = 'solid') 
-    ax.contour(x1, x2, zg, levels = sorted(fx_),colors = 'black',linewidths=1, linestyles = 'solid') 
+    ax.contour(x1, x2, zg, colors = 'red',linewidths=1, linestyles = 'solid') 
+    ax.contour(x1, x2, zg, levels = sorted(fx_),colors = 'green',linewidths=1, linestyles = 'solid') 
     ax.axis([left, rigth, bottom, top]) 
     xg = [] 
     yg = [] 
@@ -68,7 +73,8 @@ print(label)
 res.write(label + '\n') 
 k = 0 
 j = 0 
-e = [np.array([[1],[0]]),np.array([[0],[1]])] x = [] 
+e = [np.array([[1],[0]]),np.array([[0],[1]])] 
+x = [] 
 W = []  
 p = [] 
 alpha = [] 
@@ -87,7 +93,7 @@ while flag:
             fx.append([]) 
         else: 
             x[k].append(np.add(x[k][j-1],np.dot(alpha[k][j-1],p[k][j-1])))       
-            fx[k].append(f(x[k][j])) 
+        fx[k].append(f(x[k][j])) 
         if j == n: 
             if k != 0: 
                 if np.linalg.norm(np.subtract(x[k][j],x[k-1][j])) < epsilon: 
@@ -106,8 +112,8 @@ for k in range(len(x)):
         if k != 0: 
             if j == n: 
                 norm = np.round(np.linalg.norm(np.subtract(x[k][j],x[k][0])),N)        
-            if j == n: 
-                alpha_ = '-' 
+        if j == n: 
+             alpha_ = '-' 
         else: 
             alpha_ = np.round(alpha[k][j],N) 
         t = f'{k+1:7}\t{j+1:7}\t[{np.round(x[k][j][0][0],N):7},{np.round(x[k][j][1][0],N):7}] \t{np.round(fx[k][j],N):7}\t{alpha_:7}\t{norm:7}' 
@@ -120,7 +126,8 @@ print(label)
 res.write(label + '\n') 
 k = 0 
 j = 0 
-e = [np.array([[1],[0]]),np.array([[0],[1]])] x = [] 
+e = [np.array([[1],[0]]),np.array([[0],[1]])]
+x = [] 
 W = []  
 p = [] 
 alpha = [] 
@@ -137,7 +144,7 @@ while flag:
             alpha.append([]) 
         else: 
             x[k].append(np.add(x[k][j-1],np.dot(alpha[k][j-1],p[k][j-1])))         
-            fx[k].append(f(x[k][j])) 
+        fx[k].append(f(x[k][j])) 
         if j == n: 
             p[k].append(np.subtract(x[k][j],x[k][0])) 
             W[k].append(np.negative(np.add(np.dot(Q,x[k][0]),b))) 
@@ -195,7 +202,7 @@ while flag:
             fx.append([]) 
         else: 
             x[k].append(np.add(x[k][j-1],np.dot(alpha[k][j-1],p[k][j-1])))        
-            fx[k].append(f(x[k][j])) 
+        fx[k].append(f(x[k][j])) 
         if j == n: 
             p_ = np.subtract(x[k][j],x[k][0]) 
             e[0] = p_ / np.linalg.norm(p_) 
@@ -216,12 +223,14 @@ for k in range(len(x)):
         if k != 0: 
             if j == n: 
                 norm = np.round(np.linalg.norm(np.subtract(x[k][j],x[k][0])),N)          
-                if j == n: 
+        if j == n: 
             alpha_ = '-' 
         else: 
             alpha_ = np.round(alpha[k][j],N) 
         t = f'{k+1:7}\t{j+1:7}\t[{np.round(x[k][j][0][0],N):7},{np.round(x[k][j][1][0],N):7}] \t{np.round(fx[k][j],N):7}\t{alpha_:7}\t{norm:7}' 
         print(t) 
         res.write(t + '\n') 
-graph(label,x,fx,1)      res.write('\n') 
-res.close() input('Готово') 
+graph(label,x,fx,1)      
+res.write('\n') 
+res.close() 
+input('Готово') 
