@@ -41,11 +41,11 @@ def f_k(x_,C_):
 #константы и функции для построения графика 
 left = -8
 rigth = 8
-bottom = -8
-top = 8
+bottom = -10
+top = 6
 x1, x2 = np.mgrid[left-0.5:rigth+0.5:0.01,bottom-0.5:top+0.5:0.01] 
 zg = 11*x1**2+3*x2**2+6*x1*x2-2*np.sqrt(10)*(x1-3*x2)-22 
-zg_g = (x1-1)**2+(x2+0)**2-6**2
+zg_g = (x1-0)**2+(x2+2)**2-5**2
 zg_b = zg-(c0/(zg_g))
 def graph(label,x,fx): #функция построения графика 
     fig, ax = plt.subplots() 
