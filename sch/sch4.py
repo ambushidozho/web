@@ -11,12 +11,12 @@ N = 4 #количество знаков после запятой
 Q = np.array([[22,6],[6,6]]) 
 b = np.array([[-2*np.sqrt(10.0)],[6*np.sqrt(10)]]) 
 c = -22 
-c0 = 100 
+c0 = 60 
 Q_g = np.array([[2,0],[0,2]]) 
 b_g = np.array([[-4],[0]]) 
 c_g = -36 
 n = 2 
-i = n+1 
+i = n + 1 
 x0 = np.array([[np.sqrt(10.0)],[0]]) 
 epsilon = 10**(-3) #погрешность 
 def X(x): 
@@ -39,10 +39,10 @@ def grad_f(x,C):
 def f_k(x_,C_): 
     return f(x_)-C_/g(x_) 
 #константы и функции для построения графика 
-left = -10
-rigth = 10
+left = -8
+rigth = 8
 bottom = -8
-top = 6
+top = 8
 x1, x2 = np.mgrid[left-0.5:rigth+0.5:0.01,bottom-0.5:top+0.5:0.01] 
 zg = 11*x1**2+3*x2**2+6*x1*x2-2*np.sqrt(10)*(x1-3*x2)-22 
 zg_g = (x1-1)**2+(x2+0)**2-6**2
