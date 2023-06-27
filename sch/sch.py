@@ -20,10 +20,10 @@ def f(x):
     return (1/2*float(np.dot(np.dot(np.transpose(x),Q),x))+float(np.dot(np.transpose(b),x))+ c) 
 
 #константы и функции для построения графика 
-left = -5
-rigth = 10
-bottom = -15
-top = 5
+left = -2
+rigth = 6
+bottom = -7.5
+top = 2.5
 x1, x2 = np.mgrid[left-0.5:rigth+0.5:0.01,bottom-0.5:top+0.5:0.01] 
 zg = 11*x1**2+3*x2**2+6*x1*x2-2*np.sqrt(10)*(x1-3*x2)-22 
 

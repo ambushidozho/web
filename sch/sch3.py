@@ -21,12 +21,13 @@ def X(x):
 def f(x): 
     return (1/2*float(np.dot(np.dot(np.transpose(x),Q),x))+float(np.dot(np.transpose(b),x))+ c) 
 #константы и функции для построения графика 
-left = -1
-rigth = 4
-bottom = -8
-top = 3
+left = -2
+rigth = 5
+bottom = -5
+top = 2
 x1, x2 = np.mgrid[left-0.5:rigth+0.5:0.01,bottom-0.5:top+0.5:0.01] 
 zg = 11*x1**2+3*x2**2+6*x1*x2-2*np.sqrt(10)*(x1-3*x2)-22 
+flag = False
 
 def graph(label,x,fx): #функция построения графика 
     fig, ax = plt.subplots() 
@@ -34,22 +35,31 @@ def graph(label,x,fx): #функция построения графика
     ax.set_ylabel("x2") 
     fig.set_figwidth(10) 
     fig.set_figheight(10) 
-    ax.contour(x1, x2, zg, colors = 'yellow',linewidths=1, linestyles = 'solid')     
-    ax.axis([left, rigth, bottom, top]) 
+    ax.contour(x1, x2, zg, colors = 'yellow',linewidths=1, linestyles = 'solid')
+    if(flag):
+       bottom = -6
+    ax.axis([left, rigth, -6, top])
+    ax.axis([left, rigth, bottom, top])
     xg = [] 
     yg = [] 
     xg_m = [] 
     yg_m = [] 
+    ax.plot(x0[0], x0[1], color = 'blue', marker='o', markersize=4, markeredgecolor="black") 
     for k in range(len(x)): 
         xg_m.append(float(x_m[k][0][0])) 
-        yg_m.append(float(x_m[k][1][0])) 
+        yg_m.append(float(x_m[k][1][0]))  
+        # if k == 0:
+        #     ax.plot(x0[0], x0[1], float(x_m[k][0][0]), float(x_m[k][1][0]), color = 'red',lw=15) 
+        # else:
+        #     ax.plot(float(x_m[k - 1][0][0]), float(x_m[k - 1][1][0]), float(x_m[k][0][0]), float(x_m[k][1][0]), color = 'red',lw=3) 
+        ax.plot(float(x_m[k][0][0]), float(x_m[k][1][0]), color = 'blue', marker='o', markersize=4, markeredgecolor="black")
         for j in range(i): 
-            xg.append(float(x[k][j][0][0]))             
-            yg.append(float(x[k][j][1][0]))         
+            xg.append(float(x[k][j][0][0]))
+            yg.append(float(x[k][j][1][0]))
         xg.append(float(x[k][0][0][0])) 
-        yg.append(float(x[k][0][1][0])) 
-    ax.plot(x0[0], x0[1],color = 'coral', marker='o', markersize=3, markeredgecolor="black") 
-    ax.plot(xg, yg, color = 'purple',lw=3) 
+        yg.append(float(x[k][0][1][0]))
+    ax.plot(xg_m, yg_m, color = 'red',lw=0.5)
+    ax.plot(xg, yg, color = 'purple',lw=1)  
     plt.grid(linestyle = (0, (5, 10))) 
     plt.savefig(os.path.join(dir_,f"3_{label}.png"), format = 'png') 
 def write(k,x,fx,s): #запись данных в файл 
@@ -111,6 +121,7 @@ while stop(x[k]) > epsilon:
         fx[k].append(f(x[k][j])) 
     write(k,x,fx,stop(x[k])) 
 print(len(x),x[k][0],f(x[k][0])) 
+flag = True
 graph(label,x,fx) 
 label = f'Нелдера-Мида (l = {l})' 
 print(label) 
@@ -128,7 +139,6 @@ x.append([])
 fx.append([]) 
 x_m.append(x0) 
 z.append([]) 
-#z.append([0,0,0,0]) 
 h = (l**2-(l/2)**2)**(0.5) 
 x[k].append(X([-l/2+x0[0][0],x0[1][0]-h/3])) 
 x[k].append(X([l/2+x0[0][0],x0[1][0]-h/3])) 
