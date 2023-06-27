@@ -11,10 +11,10 @@ N = 4 #количество знаков после запятой
 Q = np.array([[22,6],[6,6]]) 
 b = np.array([[-2*np.sqrt(10.0)],[6*np.sqrt(10)]]) 
 c = -22 
-c0 = 60 
+c0 = 100 
 Q_g = np.array([[2,0],[0,2]]) 
-b_g = np.array([[-4],[0]]) 
-c_g = -36 
+b_g = np.array([[0],[4]]) 
+c_g = -21
 n = 2 
 i = n + 1 
 x0 = np.array([[np.sqrt(10.0)],[0]]) 
@@ -118,8 +118,7 @@ while (f_k(x[k-1],C[k]) - f_k(x[k],C[k]))  < (omega*kappa[k]*(np.linalg.norm(W[k
     x[k] = (np.add(x[k-1],np.dot(kappa[k],W[k]))) #рекурентное соотношение 
 fx.append(f(x[k])) 
 write(k,x,fx,C,np.linalg.norm(np.subtract(x[k],x[k-1])),kappa[k]) 
-while np.linalg.norm(np.subtract(x[k],x[k-1])) > epsilon:     
-#while np.linalg.norm(W[k]) > epsilon:  
+while np.linalg.norm(np.subtract(x[k],x[k-1])) > epsilon:      
     k+=1 
     C.append(C[k-1]*0.9) 
     kappa.append(kappa[k-1]) 
